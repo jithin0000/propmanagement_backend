@@ -1,0 +1,21 @@
+from django.contrib.gis.db import models
+
+# Create your models here.
+
+class Border(models.Model):
+
+    fips = models.CharField(max_length=2)
+    iso2 = models.CharField(max_length=2)
+    iso3 = models.CharField(max_length=3)
+    un = models.IntegerField()
+    name = models.CharField(max_length=50)
+    area = models.IntegerField()
+    pop2005 = models.BigIntegerField()
+    region = models.IntegerField()
+    subregion = models.IntegerField()
+    lon = models.FloatField()
+    lat = models.FloatField()
+    geom = models.MultiPolygonField()
+
+    def __str__(self):
+        return self.name

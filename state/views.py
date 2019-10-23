@@ -9,3 +9,7 @@ class StateViewSet(viewsets.ModelViewSet):
     """ view set for States of usa """
     queryset = State.objects.all()
     serializer_class = StateSerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset

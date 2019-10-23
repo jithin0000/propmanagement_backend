@@ -14,7 +14,6 @@ class PropertyView(viewsets.ModelViewSet):
     queryset = Property.objects.all()
 
     def get_queryset(self):
-        print(self.request.GET)
         queryset = super().get_queryset()
         queryset = queryset
         return queryset

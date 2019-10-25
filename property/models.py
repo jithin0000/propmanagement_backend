@@ -1,5 +1,5 @@
 from django.contrib.gis.db import models
-
+from django.db.models.signals import pre_save, post_save
 # Create your models here.
 import uuid
 from border.models import Border
@@ -38,6 +38,9 @@ class Property(models.Model):
     location = models.PointField()
     created_at = models.DateTimeField(auto_now_add=True)
 
+    image_url = models.CharField(null=True, blank=True, max_length=255)
+
+
     class Meta:
         verbose_name_plural = "properties"
 
@@ -57,6 +60,17 @@ def upload_with_rename(instance, filename):
 class PropImage(models.Model):
     prop = models.ForeignKey(Property, on_delete=models.CASCADE, null=True, blank=True)
     prop_image_url = models.ImageField(upload_to=upload_with_rename, max_length=None)
+    main_image = models.BooleanField(default=False, null=True, blank=True)
 
     def __str__(self):
         return str(self.id)
+
+
+def post_save_receiver(sender, instance, created, **kwargs):
+    if created:
+        if instance.main_image:
+            instance.prop.image_url = instance.prop_image_url.url
+            instance.prop.save()
+
+
+post_save.connect(post_save_receiver, sender=PropImage)

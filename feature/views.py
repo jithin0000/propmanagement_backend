@@ -18,7 +18,6 @@ class FeatureViewSet(viewsets.ModelViewSet):
         queryset = super().get_queryset()
         prop = None
         prop = self.request.GET.get('prop')
-        print(self.request.GET)
         if prop == None:
             return queryset
         prop = int(prop)

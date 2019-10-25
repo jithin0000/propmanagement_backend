@@ -1,9 +1,11 @@
 from rest_framework import serializers 
 
 from property.models import Property, PropImage
-
+from agent.serializers import AgentSerializer
 
 class PropertySerializers(serializers.ModelSerializer):
+
+    agent = AgentSerializer()
 
     """ serializer for property """
     class Meta:

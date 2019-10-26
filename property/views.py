@@ -20,6 +20,7 @@ class PropertyView(viewsets.ModelViewSet):
         prop_type = self.request.GET.get('sale_type')
         min_price = self.request.GET.get('min_price')
         max_price = self.request.GET.get('max_price')
+        order_by = self.request.GET.get('order_by')
 
 
         if state is not None:
@@ -36,6 +37,9 @@ class PropertyView(viewsets.ModelViewSet):
         if max_price is not None:
             max_price = int(max_price)
             queryset = queryset.filter(price__lt = max_price)
+        
+        if order_by is not None:
+            queryset = queryset.order_by(order_by)
         
 
         return queryset

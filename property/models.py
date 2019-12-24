@@ -66,11 +66,9 @@ class PropImage(models.Model):
         return str(self.id)
 
 
-def post_save_receiver(sender, instance, created, **kwargs):
-    if created:
-        if instance.main_image:
-            instance.prop.image_url = instance.prop_image_url.url
-            instance.prop.save()
+def pre_save_receiver(sender, instance, **kwargs):
+    if instance.main_image:
+        instance.prop.image_url = instance.prop_image_url.url
 
 
-post_save.connect(post_save_receiver, sender=PropImage)
+pre_save.connect(pre_save_receiver, sender=PropImage)

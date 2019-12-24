@@ -10,6 +10,8 @@ class PropertySerializers(serializers.ModelSerializer):
     """ serializer for property """
     class Meta:
         model = Property
+        # geo_field = "location"
+
         fields = "__all__"
 
 
@@ -19,4 +21,4 @@ class PropImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PropImage
-        fields = ('prop', 'prop_image_url')
+        fields = ('id','prop', 'prop_image_url')
